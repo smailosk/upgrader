@@ -90,7 +90,10 @@ class UpgraderPlayStore extends UpgraderStore {
     if (state.packageInfo == null) return UpgraderVersionInfo();
     final id = state.packageInfo!.packageName;
     final playStore = PlayStoreSearchAPI(
-        client: state.client, clientHeaders: state.clientHeaders);
+      client: state.client,
+      clientHeaders: state.clientHeaders,
+      playStoreVersionPreFix: state.playStorePreFix,
+    );
     playStore.debugLogging = state.debugLogging;
 
     String? appStoreListingURL;

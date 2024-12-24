@@ -27,7 +27,10 @@ class UpgraderState {
     required this.upgraderDevice,
     required this.upgraderOS,
     this.versionInfo,
+    required this.playStorePreFix,
   });
+
+  final String playStorePreFix;
 
   /// Provide an HTTP Client that can be replaced during testing.
   final http.Client client;
@@ -108,6 +111,7 @@ class UpgraderState {
       upgraderDevice: upgraderDevice ?? this.upgraderDevice,
       upgraderOS: upgraderOS ?? this.upgraderOS,
       versionInfo: versionInfo ?? this.versionInfo,
+      playStorePreFix: playStorePreFix,
     );
   }
 
@@ -138,6 +142,7 @@ class UpgraderState {
       upgraderDevice: upgraderDevice,
       upgraderOS: upgraderOS,
       versionInfo: versionInfo == true ? null : this.versionInfo,
+      playStorePreFix: playStorePreFix,
     );
   }
 }

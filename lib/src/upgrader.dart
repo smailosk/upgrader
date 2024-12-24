@@ -59,6 +59,7 @@ class Upgrader with WidgetsBindingObserver {
     UpgraderDevice? upgraderDevice,
     UpgraderOS? upgraderOS,
     this.willDisplayUpgrade,
+    this.playStorePreFix = '',
   })  : _state = UpgraderState(
           client: client ?? http.Client(),
           clientHeaders: clientHeaders,
@@ -73,6 +74,7 @@ class Upgrader with WidgetsBindingObserver {
               parseVersion(minAppVersion, 'minAppVersion', debugLogging),
           upgraderDevice: upgraderDevice ?? UpgraderDevice(),
           upgraderOS: upgraderOS ?? UpgraderOS(),
+          playStorePreFix: playStorePreFix,
         ),
         storeController = storeController ?? UpgraderStoreController() {
     if (_state.debugLogging) {
@@ -110,6 +112,8 @@ class Upgrader with WidgetsBindingObserver {
   Version? _lastVersionAlerted;
   Version? _userIgnoredVersion;
   bool _hasAlerted = false;
+
+  final String playStorePreFix;
 
   static const notInitializedExceptionMessage =
       'upgrader: initialize() not called. Must be called first.';

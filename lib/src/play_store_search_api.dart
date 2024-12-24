@@ -8,7 +8,10 @@ import 'package:http/http.dart' as http;
 import 'package:version/version.dart';
 
 class PlayStoreSearchAPI {
-  PlayStoreSearchAPI({http.Client? client, this.clientHeaders})
+  PlayStoreSearchAPI(
+      {http.Client? client,
+      this.clientHeaders,
+      this.playStoreVersionPreFix = ''})
       : client = client ?? http.Client();
 
   /// Play Store Search Api URL
@@ -22,6 +25,8 @@ class PlayStoreSearchAPI {
 
   /// Enable print statements for debugging.
   bool debugLogging = false;
+
+  final String playStoreVersionPreFix;
 
   /// Look up by id.
   Future<Document?> lookupById(String id,
@@ -276,9 +281,12 @@ extension PlayStoreResults on PlayStoreSearchAPI {
           versionElement
               .substring(storeVersionStartIndex)
               .indexOf(patternEndOfString);
-      final storeVersion = versionElement.substring(
+      var storeVersion = versionElement.substring(
           storeVersionStartIndex, storeVersionEndIndex);
 
+      if (playStoreVersionPreFix.isNotEmpty) {
+        storeVersion = storeVersion.replaceFirst(playStoreVersionPreFix, '');
+      }
       // storeVersion might be: 'Varies with device', which is not a valid version.
       version = Version.parse(storeVersion).toString();
     } catch (e) {

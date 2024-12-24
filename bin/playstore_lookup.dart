@@ -10,7 +10,7 @@
 import 'package:upgrader/src/play_store_search_api.dart';
 
 void main(List<String> arguments) async {
-  var lookupId = 'com.google.android.apps.mapslite';
+  var lookupId = 'com.kone.elevatorcall';
   var lookupCountry = 'US';
 
   if (arguments.isNotEmpty) {
@@ -35,7 +35,7 @@ void main(List<String> arguments) async {
     }
   }
 
-  final playStore = PlayStoreSearchAPI();
+  final playStore = PlayStoreSearchAPI(playStoreVersionPreFix: 'v');
   playStore.debugLogging = true;
 
   final results = await playStore.lookupById(lookupId, country: lookupCountry);
